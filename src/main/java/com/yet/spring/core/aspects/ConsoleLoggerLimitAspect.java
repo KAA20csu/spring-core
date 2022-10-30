@@ -4,7 +4,11 @@ import org.aspectj.lang.ProceedingJoinPoint;
 
 import com.yet.spring.core.beans.Event;
 import com.yet.spring.core.loggers.EventLogger;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 
+@Aspect
 public class ConsoleLoggerLimitAspect {
 
     private final int maxCount;
@@ -17,7 +21,9 @@ public class ConsoleLoggerLimitAspect {
         this.maxCount = maxCount;
         this.otherLogger = otherLogger;
     }
-
+    @Pointcut("execution(* com.yet.spring.core.loggers.ConsoleEventLogger.logEvent(..))")
+    private void consoleLogEventMethods() {}
+    @Around("consoleLogEventMethods() && args(evt)")
     public void aroundLogEvent(ProceedingJoinPoint jp, Event evt) throws Throwable {
         if (currentCount < maxCount) {
             System.out.println("ConsoleEventLogger max count is not reached. Continue...");

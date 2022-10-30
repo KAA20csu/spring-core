@@ -25,13 +25,14 @@ public class StatisticsAspect {
             counter.put(clazz, 0);
         }
         counter.put(clazz, counter.get(clazz) + 1);
-    }
+    } // записываем выполнение каждого из логгеров в мапу.
 
     public Map<Class<?>, Integer> getCounter() {
         return Collections.unmodifiableMap(counter);
     }
 
-    @AfterReturning("execution(* com.yet.spring.core.App.logEvents(..))")
+    @AfterReturning("execution(* com.yet.spring.core.App.logEvents(..))") // после завершения метода logEvents (в котором мы вызываем разные логгеры),
+                                                                            // выводим всю статистику
     public void outputLoggingCounter() {
         System.out.println("Loggers statistics. Number of calls: ");
         for (Entry<Class<?>, Integer> entry : counter.entrySet()) {

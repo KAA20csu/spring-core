@@ -10,6 +10,8 @@ public class LoggingAspect {
     @Pointcut("execution(* *.logEvent(..))")
     private void allLogEventMethods() {}
 
+
+
     @Pointcut("allLogEventMethods() && within(*.*File*Logger)")
     private void logEventInsideFileLoggers() {}
 

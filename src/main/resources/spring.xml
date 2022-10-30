@@ -46,7 +46,7 @@
     </util:map>
     <bean id="app" class="com.yet.spring.core.App">
         <constructor-arg ref="client" />
-        <constructor-arg ref="dbLogger" />
+        <constructor-arg ref="eventLogger" />
         <constructor-arg ref="loggerMap"/>
     </bean>
 
